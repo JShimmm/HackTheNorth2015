@@ -92,7 +92,11 @@
     <orderEntry type="library" exported="" name="support-annotations-22.1.1" level="project" />
     <orderEntry type="library" exported="" name="support-v4-22.1.1" level="project" />
     <orderEntry type="library" exported="" name="bolts-android-1.2.1" level="project" />
+<<<<<<< HEAD
     <orderEntry type="library" exported="" name="cardview-v7-21.0.3" level="project" />
+=======
+    <orderEntry type="library" exported="" name="ParseFacebookUtilsV3-1.10.2" level="project" />
+>>>>>>> 2112600632030c3cf1e9598cdd66a62d6ebb8b75
     <orderEntry type="library" exported="" name="appcompat-v7-22.1.1" level="project" />
     <orderEntry type="library" exported="" name="parse-android-1.10.2" level="project" />
   </component>
