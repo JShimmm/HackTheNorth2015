@@ -13,7 +13,6 @@ public class FoodRequest {
     private Location locationFood;
     private Location locationUser;
     private String description;
-    private String FacebookId;
     private int price;
     private String name;
 
@@ -33,21 +32,13 @@ public class FoodRequest {
         this.price = price;
     }
 
-    public String getFacebookId() {
-        return FacebookId;
-    }
-
-    public void setFacebookId(String facebookId) {
-        FacebookId = facebookId;
-    }
-
-    public FoodRequest(String FacebookId, Location locationFood, Location locationUser,
-                       String description, int price){
-        this.FacebookId = FacebookId;
+    public FoodRequest(Location locationFood, Location locationUser,
+                       String description, int price, String name){
         this.locationFood = locationFood;
         this.locationUser = locationUser;
         this.description = description;
         this.price = price;
+        this.name = name;
     }
 
     public Location getLocationFood() {

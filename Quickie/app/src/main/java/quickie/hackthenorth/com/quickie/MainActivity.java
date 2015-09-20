@@ -17,6 +17,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
 import quickie.hackthenorth.com.quickie.Requests.DeliveryRequests;
+import quickie.hackthenorth.com.quickie.Requests.FoodRequest;
 
 
 public class MainActivity extends ActionBarActivity implements
@@ -40,9 +41,18 @@ public class MainActivity extends ActionBarActivity implements
         return true;
     }
 
+    public int iterator = 0;
     public void hello(View v){
-//        Intent intent = new Intent(this, quickie.hackthenorth.com.quickie.TabPlatform.class);
-//        this.startActivity(intent);
+        Location locationFood = new Location("");
+        Location locationUser = new Location("");
+        locationFood.setLatitude(43.4732817 + iterator++ * 0.000005);
+        locationFood.setLongitude(-80.5384747 + iterator++ * 0.000005);
+
+        locationUser.setLatitude(43.4743725 + iterator++ * 0.000005);
+        locationUser.setLatitude(-80.5283152 + iterator++ * 0.000005);
+
+        FoodRequest request = new FoodRequest(locationFood, locationUser,"Hello", 15, "Richard");
+        parseApp.pushFoodRequestToDB(request);
     }
 
     @Override
