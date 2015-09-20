@@ -44,6 +44,7 @@ public class MainActivity extends ActionBarActivity implements
     private TextView info;
     private LoginButton loginButton;
     private CallbackManager callbackManager;
+    private String fbUserId;
 
     ParseApplication parseApp;
     GoogleApiClient mGoogleApiClient;
@@ -64,6 +65,7 @@ public class MainActivity extends ActionBarActivity implements
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                fbUserId = loginResult.getAccessToken().getUserId();
                 info.setText(
                         "User ID: "
                                 + loginResult.getAccessToken().getUserId()
@@ -72,9 +74,9 @@ public class MainActivity extends ActionBarActivity implements
                                 + loginResult.getAccessToken().getToken()
                 );
 
-//                Intent myIntent = new Intent(CurrentActivity.this, NextActivity.class);
-//                myIntent.putExtra("key", value); //Optional parameters
-//                CurrentActivity.this.startActivity(myIntent);
+                Intent myIntent = new Intent(MainActivity.this, messengerActivity.class);
+                //myIntent.putExtra("key", value); //Optional parameters
+                MainActivity.this.startActivity(myIntent);
             }
 
             @Override
