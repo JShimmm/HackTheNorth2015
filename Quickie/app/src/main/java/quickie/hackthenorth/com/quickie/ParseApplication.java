@@ -83,6 +83,7 @@ public class ParseApplication extends Application {
     }
     public void pushFoodRequestToDB(FoodRequest request){
         Log.d("Quickie","Hello2");
+        Log.d("Quickie", request.getFacebookId());
         ParseObject foodRequest = new ParseObject("FoodRequests");
 
         ParseGeoPoint geoPoint = new ParseGeoPoint();

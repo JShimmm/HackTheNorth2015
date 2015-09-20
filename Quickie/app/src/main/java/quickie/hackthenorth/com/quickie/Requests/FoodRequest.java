@@ -48,6 +48,7 @@ public class FoodRequest {
         this.description = description;
         this.price = price;
         this.name = name;
+        this.FacebookId = FacebookId;
     }
 
     public Location getLocationFood() {

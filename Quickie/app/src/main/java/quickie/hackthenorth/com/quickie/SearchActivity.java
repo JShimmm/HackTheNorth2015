@@ -57,6 +57,7 @@ public class SearchActivity extends Activity {
 			location.setLongitude(extras.getDouble("Longitude"));
 			name = extras.getString("Name");
 			FacebookId = extras.getString("FacebookId");
+			Log.d("Quickie", FacebookId);
 			LL = location.getLatitude() + "," + location.getLongitude();
 
 			TextView nameView = (TextView) findViewById(R.id.make_request_name);
@@ -161,7 +162,7 @@ public class SearchActivity extends Activity {
 			intent.putExtra("Name", name);
 			intent.putExtra("FacebookId", FacebookId);
 			food = (EditText) findViewById(R.id.make_request_food);
-			intent.putExtra("Food", food.getText());
+			intent.putExtra("Food", food.getText().toString());
 			startActivity(intent);
 		} else {
 			Toast.makeText(this, "An error occured during search", Toast.LENGTH_LONG).show();
@@ -170,7 +171,6 @@ public class SearchActivity extends Activity {
 
 	static String RESTAURANT = "Restaurant";
 	static String LOCATION = "Location";
-	static String FULLLOCATION = "";
 
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {
