@@ -10,7 +10,6 @@ import com.parse.FindCallback;
 import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseACL;
-import com.parse.ParseAnonymousUtils;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
@@ -32,7 +31,7 @@ public class ParseApplication extends Application {
     public void onCreate(){
         super.onCreate();
         // Initialize Crash Reporting.
-//        ParseCrashReporting.enable(this);
+
         Parse.enableLocalDatastore(this);
         ParseUser.enableAutomaticUser();
         // Add your initialization code here
@@ -44,6 +43,7 @@ public class ParseApplication extends Application {
         defaultACL.setPublicReadAccess(true);
         defaultACL.setPublicWriteAccess(true);
         ParseACL.setDefaultACL(defaultACL, true);
+
     }
 
     public ParseApplication(){
@@ -94,7 +94,6 @@ public class ParseApplication extends Application {
         foodRequest.put("Description", request.getDescription());
         foodRequest.put("Price", request.getPrice());
         foodRequest.put("Name", request.getName());
-//        foodRequest.setACL();
         foodRequest.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {

@@ -3,11 +3,18 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="facebook_app_id">1521068021517325</string>
+
     <string name="title_activity_tab_platform">TabPlatform</string>
 
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
+
+    <string name="consumer_key">l8FCQyQSWhCyppNMxQY1sw</string>
+    <string name="consumer_secret">T4RvmqObi2kFfhmIbp-5D9LnhU8</string>
+    <string name="api_token">LFO3KQsFfUoPX7iV31oVw22ltGRg4i5C</string>
+    <string name="api_token_secret">U2XwxYC8R7al8nNLAifyZx0V0DI</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

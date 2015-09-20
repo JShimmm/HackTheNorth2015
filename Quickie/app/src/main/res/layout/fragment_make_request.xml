@@ -5,10 +5,24 @@
     android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name wants"
+        android:textSize="30dp" />
+
     <EditText
         android:layout_width="match_parent"
-        android:hint="Search"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="food"
+        android:textSize="20dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="at"
+        android:textSize="20dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,13 +47,15 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
-            android:layout_width="40dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.2"
             android:text="CAD$ : "
             />
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.8"
             android:hint="Price"/>
     </LinearLayout>
     <EditText
