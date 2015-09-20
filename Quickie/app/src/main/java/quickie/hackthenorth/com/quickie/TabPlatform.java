@@ -8,20 +8,11 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import quickie.hackthenorth.com.quickie.Requests.DeliveryRequests;
 import quickie.hackthenorth.com.quickie.Requests.FoodRequest;
-import quickie.hackthenorth.com.quickie.Requests.MakeRequest;
-
 
 public class TabPlatform extends FragmentActivity {
 
@@ -46,8 +37,6 @@ public class TabPlatform extends FragmentActivity {
         setFragment(fragment);
 
     }
-
-    public int iterator = 0;
 
     protected void setFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
