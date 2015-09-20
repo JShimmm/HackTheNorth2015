@@ -23,10 +23,11 @@
         android:largeHeap="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".SearchActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -45,10 +46,12 @@
             android:name=".TabPlatform"
             android:label="@string/title_activity_tab_platform" >
         </activity>
-
-        <activity android:name=".BusinessActivity"></activity>
-        <activity android:name=".BusinessesActivity"></activity>
-
+        <activity android:name=".BusinessActivity" />
+        <activity android:name=".BusinessesActivity" />
+        <activity
+            android:name=".messengerActivity"
+            android:label="@string/title_activity_messenger" >
+        </activity>
     </application>
 
 </manifest>

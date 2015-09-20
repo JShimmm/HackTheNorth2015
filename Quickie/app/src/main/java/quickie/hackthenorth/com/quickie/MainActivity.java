@@ -53,6 +53,11 @@ public class MainActivity extends ActionBarActivity implements
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
         setContentView(R.layout.activity_main);
         info = (TextView)findViewById(R.id.info);
         loginButton = (LoginButton)findViewById(R.id.login_button);
@@ -66,6 +71,10 @@ public class MainActivity extends ActionBarActivity implements
                                 "Auth Token: "
                                 + loginResult.getAccessToken().getToken()
                 );
+
+//                Intent myIntent = new Intent(CurrentActivity.this, NextActivity.class);
+//                myIntent.putExtra("key", value); //Optional parameters
+//                CurrentActivity.this.startActivity(myIntent);
             }
 
             @Override
