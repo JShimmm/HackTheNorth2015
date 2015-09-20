@@ -20,4 +20,11 @@
         android:layout_centerInParent="true"
         />
 
+    <Button
+        android:id="@+id/startMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get a quickie!"
+        android:onClick="startSomething"></Button>
+
 </RelativeLayout>
