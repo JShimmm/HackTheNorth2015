@@ -15,6 +15,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
+
     <application
         android:name=".ParseApplication"
         android:allowBackup="true"
@@ -36,7 +37,7 @@
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
 
         <meta-data
@@ -45,16 +46,17 @@
 
         <activity
             android:name=".TabPlatform"
-            android:label="@string/title_activity_tab_platform" >
+            android:label="@string/app_name" >
         </activity>
         <activity android:name=".BusinessActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".BusinessesActivity" />
         <activity android:name=".TransactionConfirmation" />
-        <!--<activity-->
-            <!--android:name=".messengerActivity"-->
-            <!--android:label="@string/title_activity_messenger" >-->
-        <!--</activity>-->
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Base.ThemeOverlay.AppCompat.ActionBar">
+        </activity>
     </application>
 
 </manifest>

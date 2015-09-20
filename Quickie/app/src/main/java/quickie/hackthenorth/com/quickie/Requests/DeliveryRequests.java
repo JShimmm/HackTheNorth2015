@@ -82,9 +82,4 @@ public class DeliveryRequests extends Fragment {
         return root;
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
 }

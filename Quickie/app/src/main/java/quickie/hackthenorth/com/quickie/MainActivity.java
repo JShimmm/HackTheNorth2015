@@ -72,15 +72,9 @@ public class MainActivity extends ActionBarActivity implements
                                     + loginResult.getAccessToken().getToken()
                     );
                     mGoogleApiClient.connect();
-//                    Intent myIntent = new Intent(MainActivity.this, messengerActivity.class);
+                    Intent myIntent = new Intent(MainActivity.this, HomeActivity.class);
 //                    myIntent.putExtra("key", value); //Optional parameters
-//                    MainActivity.this.startActivity(myIntent);
-
-//                    Intent intent = new Intent(context, quickie.hackthenorth.com.quickie.TabPlatform.class);
-
-//                    Intent myIntent = new Intent(MainActivity.this, SearchActivity.class);
-//                    myIntent.putExtra("LL", ((Double) mLastLocation.getLatitude()).toString() + "," + ((Double) mLastLocation.getLongitude()).toString()); //Optional parameters
-//                    startActivity(myIntent);
+                    MainActivity.this.startActivity(myIntent);
                 }
 
                 @Override
