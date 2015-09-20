@@ -42,8 +42,8 @@ public class MakeRequest extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_make_request, container, false);
-        TextView name = (TextView) root.findViewById(R.id.make_request_name);
-        name.setText(name + " wants ");
+        TextView nameView = (TextView) root.findViewById(R.id.make_request_name);
+        nameView.setText(name + " wants ");
         return root;
     }
 }

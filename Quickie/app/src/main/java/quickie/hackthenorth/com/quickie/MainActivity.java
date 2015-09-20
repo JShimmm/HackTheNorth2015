@@ -174,7 +174,7 @@ public class MainActivity extends ActionBarActivity implements
                             Log.d("Quickie", graphResponse.toString());
                             try{
                                 String name = graphResponse.getJSONObject().getString("name");
-                                Intent intent = new Intent(context, quickie.hackthenorth.com.quickie.TabPlatform.class);
+                                Intent intent = new Intent(context, HomeActivity.class);
                                 intent.putExtra("LatitudeCurrentUser", mLastLocation.getLatitude());
                                 intent.putExtra("LongitudeCurrentUser", mLastLocation.getLongitude());
                                 intent.putExtra("Name", name);
