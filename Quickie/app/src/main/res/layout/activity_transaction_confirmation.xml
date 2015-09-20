@@ -9,46 +9,60 @@
         android:layout_marginTop="20dp"
         android:gravity="center_horizontal"
         android:textSize="30dp"
-        android:text="FirstName LastName"/>
+        android:text="FirstName LastName"
+        android:id="@+id/transaction_fullName"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Address: "
         android:layout_marginTop="20dp"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:id="@+id/transaction_address"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Distributer: "
         android:layout_marginTop="20dp"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:id="@+id/transaction_distributer"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Price: "
         android:layout_marginTop="20dp"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:id="@+id/transaction_price"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Destination: "
         android:layout_marginTop="20dp"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:id="@+id/transaction_destination"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Description: "
+        android:layout_marginTop="20dp"
+        android:textSize="20dp"
+        android:id="@+id/transaction_description"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Chat with FirstName"
-        android:onClick="messageClient"/>
+        android:onClick="messageClient"
+        android:id="@+id/transaction_chat"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Confirm Transaction"
-        android:onClick="confirmTransaction"/>
+        android:onClick="transaction_confirmTransaction"/>
 
 </LinearLayout>

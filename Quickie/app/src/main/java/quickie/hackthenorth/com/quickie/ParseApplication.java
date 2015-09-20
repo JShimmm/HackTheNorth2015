@@ -143,7 +143,7 @@ public class ParseApplication extends Application {
                 locationUser.setLongitude(object.getNumber("LngUser").doubleValue());
                 FoodRequest parsedRequest = new FoodRequest(locationFood, locationUser,
                         object.getString("Description"), object.getNumber("Price").intValue(),
-                        "Richard", object.getString("FacebookId"));
+                        object.getString("Name"), object.getString("FacebookId"));
                 foodRequests.add(parsedRequest);
             }
             return foodRequests;

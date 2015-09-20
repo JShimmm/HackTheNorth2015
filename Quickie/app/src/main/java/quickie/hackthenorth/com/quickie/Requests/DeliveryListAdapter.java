@@ -2,7 +2,11 @@ package quickie.hackthenorth.com.quickie.Requests;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +20,8 @@ import com.parse.ParseGeoPoint;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import quickie.hackthenorth.com.quickie.R;
 
@@ -55,11 +61,11 @@ public class DeliveryListAdapter extends ArrayAdapter<FoodRequest> implements Ad
         ParseGeoPoint userPosition = new ParseGeoPoint(latUser,lngUser);
         ParseGeoPoint foodPosition = new ParseGeoPoint(request.getLocationFood().getLatitude(),
                 request.getLocationFood().getLongitude());
-        distanceFromPlace.setText(round((userPosition.distanceInKilometersTo(foodPosition)* 1000),2) + "m");
+        distanceFromPlace.setText(round((userPosition.distanceInKilometersTo(foodPosition)* 1000),0) + "m");
         TextView distanceFromBuyer = (TextView) requestView.findViewById(R.id.distance_from_user);
         ParseGeoPoint destinationPosition = new ParseGeoPoint(request.getLocationUser().getLatitude(),
                 request.getLocationUser().getLongitude());
-        distanceFromBuyer.setText(round((foodPosition.distanceInKilometersTo(destinationPosition) * 1000), 2) + "m");
+        distanceFromBuyer.setText(round((foodPosition.distanceInKilometersTo(destinationPosition) * 1000), 0) + "m");
         return requestView;
     }
 
@@ -73,6 +79,23 @@ public class DeliveryListAdapter extends ArrayAdapter<FoodRequest> implements Ad
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        FoodRequest request = getItem(position);
+        Intent intent = new Intent(this.context, quickie.hackthenorth.com.quickie.TransactionConfirmation.class);
+        Geocoder geocoder = new Geocoder(context, Locale.ENGLISH);
+        try{
+            List<Address> addressList = geocoder.getFromLocationName(request.getLocationFood().toString(),1);
+            intent.putExtra("LatFood",addressList.get(0).getLatitude());
+            intent.putExtra("LngFood",addressList.get(0).getLongitude());
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            intent.putExtra("LatUser", request.getLocationUser().getLatitude());
+            intent.putExtra("LngUser", request.getLocationUser().getLongitude());
+            intent.putExtra("Description", request.getDescription());
+            intent.putExtra("Price", request.getPrice());
+            intent.putExtra("Name", request.getName());
+            intent.putExtra("FacebookId", request.getFacebookId());
+            context.startActivity(intent);
+        }
     }
 }
