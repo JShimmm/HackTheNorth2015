@@ -127,6 +127,7 @@ public class ParseApplication extends Application {
         ParseQuery query = new ParseQuery("FoodRequests");
         try {
             List requests = query.find();
+            Log.d("Quickie", "List size : "+requests.size());
             ArrayList <FoodRequest> foodRequests = new ArrayList<>();
             for(int i = 0; i < requests.size(); i++){
                 ParseObject object = (ParseObject) requests.get(i);

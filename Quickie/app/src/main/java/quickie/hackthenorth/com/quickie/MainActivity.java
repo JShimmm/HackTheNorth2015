@@ -1,38 +1,33 @@
 package quickie.hackthenorth.com.quickie;
 
-import java.util.Arrays;
-
+import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
-import android.app.ActionBar;
-import android.app.Activity;
-import android.content.Intent;
 import android.location.Location;
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+
+import org.json.JSONException;
 
 import quickie.hackthenorth.com.quickie.Requests.DeliveryRequests;
 import quickie.hackthenorth.com.quickie.Requests.FoodRequest;
@@ -46,6 +41,7 @@ public class MainActivity extends ActionBarActivity implements
     private CallbackManager callbackManager;
     private String fbUserId;
 
+    private Context context;
     ParseApplication parseApp;
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
@@ -53,44 +49,48 @@ public class MainActivity extends ActionBarActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
-        callbackManager = CallbackManager.Factory.create();
+        setContentView(R.layout.activity_main);
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
-        setContentView(R.layout.activity_main);
+        context = this;
         info = (TextView)findViewById(R.id.info);
-        loginButton = (LoginButton)findViewById(R.id.login_button);
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                fbUserId = loginResult.getAccessToken().getUserId();
-                info.setText(
-                        "User ID: "
-                                + loginResult.getAccessToken().getUserId()
-                                + "\n" +
-                                "Auth Token: "
-                                + loginResult.getAccessToken().getToken()
-                );
+        if(AccessToken.getCurrentAccessToken() == null) {
+            callbackManager = CallbackManager.Factory.create();
+            loginButton = (LoginButton) findViewById(R.id.login_button);
+            loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                @Override
+                public void onSuccess(LoginResult loginResult) {
+                    fbUserId = loginResult.getAccessToken().getUserId();
+                    info.setText(
+                            "User ID: "
+                                    + loginResult.getAccessToken().getUserId()
+                                    + "\n" +
+                                    "Auth Token: "
+                                    + loginResult.getAccessToken().getToken()
+                    );
+                    mGoogleApiClient.connect();
+//                    Intent myIntent = new Intent(MainActivity.this, messengerActivity.class);
+//                    myIntent.putExtra("key", value); //Optional parameters
+//                    MainActivity.this.startActivity(myIntent);
+                }
 
-                Intent myIntent = new Intent(MainActivity.this, messengerActivity.class);
-                //myIntent.putExtra("key", value); //Optional parameters
-                MainActivity.this.startActivity(myIntent);
-            }
+                @Override
+                public void onCancel() {
+                    info.setText("Login attempt canceled.");
+                }
 
-            @Override
-            public void onCancel() {
-                info.setText("Login attempt canceled.");
-            }
-
-            @Override
-            public void onError(FacebookException e) {
-                info.setText("Login attempt failed.");
-            }
-        });
-        parseApp = new ParseApplication();
-
+                @Override
+                public void onError(FacebookException e) {
+                    info.setText("Login attempt failed.");
+                }
+            });
+            parseApp = new ParseApplication();
+        } else {
+            mGoogleApiClient.connect();
+        }
     }
 
     @Override
@@ -120,10 +120,14 @@ public class MainActivity extends ActionBarActivity implements
         parseApp.pushFoodRequestToDB(request);
     }
 
+    public void StartSomething(View v){
+        Intent intent = new Intent(this, quickie.hackthenorth.com.quickie.TabPlatform.class);
+        this.startActivity(intent);
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
-        mGoogleApiClient.connect();
     }
 
     @Override
@@ -166,6 +170,31 @@ public class MainActivity extends ActionBarActivity implements
         if (mLastLocation != null) {
             Toast.makeText(this, String.valueOf(mLastLocation.getLatitude()) + "" +
                     String.valueOf(mLastLocation.getLongitude()), Toast.LENGTH_LONG).show();
+            Log.d("Quickie", "Hellooooo");
+            GraphRequest graphRequest = GraphRequest.newGraphPathRequest(
+                    AccessToken.getCurrentAccessToken(),
+                    "me",
+                    new GraphRequest.Callback() {
+                        @Override
+                        public void onCompleted(GraphResponse graphResponse) {
+                            Log.d("Quickie", graphResponse.toString());
+                            try{
+                                String name = graphResponse.getJSONObject().getString("name");
+                                Intent intent = new Intent(context, quickie.hackthenorth.com.quickie.TabPlatform.class);
+                                intent.putExtra("LatitudeCurrentUser", mLastLocation.getLatitude());
+                                intent.putExtra("LongitudeCurrentUser", mLastLocation.getLongitude());
+                                intent.putExtra("Name", name);
+                                context.startActivity(intent);
+                            } catch (JSONException e){
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+            );
+            Bundle args = new Bundle();
+            args.putString("fields", "name,id");
+            graphRequest.setParameters(args);
+            graphRequest.executeAsync();
         } else {
             Toast.makeText(this, "No location", Toast.LENGTH_LONG).show();
         }
