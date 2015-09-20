@@ -50,6 +50,7 @@
         <activity android:name=".BusinessActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".BusinessesActivity" />
+        <activity android:name=".TransactionConfirmation" />
         <!--<activity-->
             <!--android:name=".messengerActivity"-->
             <!--android:label="@string/title_activity_messenger" >-->

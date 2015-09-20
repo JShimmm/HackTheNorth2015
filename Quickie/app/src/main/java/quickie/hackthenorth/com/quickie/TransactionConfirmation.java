@@ -18,10 +18,12 @@ public class TransactionConfirmation extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction_confirmation);
         Bundle args = getIntent().getExtras();
+        TextView name = (TextView) findViewById(R.id.transaction_fullName);
+        name.setText(args.getString("Name"));
         TextView address = (TextView)findViewById(R.id.transaction_address);
-        address.setText(args.getString("LatFood") + ", " + args.getString("LngFood"));
+        address.setText(args.getDouble("LatFood") + ", " + args.getDouble("LngFood"));
         TextView destination = (TextView) findViewById(R.id.transaction_destination);
-        destination.setText(args.getString("LatUser") + ", " + args.getString("LngFood"));
+        destination.setText(args.getDouble("LatUser") + ", " + args.getDouble("LngFood"));
         //TextView distributor = (TextView) findViewById(R.id.transaction_distributer);
         //distributor.setText(args.getString("Distributor"));
         TextView price = (TextView) findViewById(R.id.transaction_price);

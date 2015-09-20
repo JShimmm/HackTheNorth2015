@@ -28,7 +28,7 @@ import quickie.hackthenorth.com.quickie.R;
 /**
  * Created by eedcoro on 9/19/2015.
  */
-public class DeliveryListAdapter extends ArrayAdapter<FoodRequest> implements AdapterView.OnItemClickListener{
+public class DeliveryListAdapter extends ArrayAdapter<FoodRequest> {
 
     ArrayList<FoodRequest> foodRequests = new ArrayList<>();
     Context context;
@@ -77,7 +77,7 @@ public class DeliveryListAdapter extends ArrayAdapter<FoodRequest> implements Ad
         return bd.doubleValue();
     }
 
-    @Override
+//    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         FoodRequest request = getItem(position);
         Intent intent = new Intent(this.context, quickie.hackthenorth.com.quickie.TransactionConfirmation.class);
