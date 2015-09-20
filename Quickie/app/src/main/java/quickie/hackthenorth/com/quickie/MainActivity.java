@@ -75,6 +75,9 @@ public class MainActivity extends ActionBarActivity implements
 //                    Intent myIntent = new Intent(MainActivity.this, messengerActivity.class);
 //                    myIntent.putExtra("key", value); //Optional parameters
 //                    MainActivity.this.startActivity(myIntent);
+                    Intent myIntent = new Intent(MainActivity.this, SearchActivity.class);
+                    myIntent.putExtra("LL", ((Double) mLastLocation.getLatitude()).toString() + "," + ((Double) mLastLocation.getLongitude()).toString()); //Optional parameters
+                    startActivity(myIntent);
                 }
 
                 @Override
