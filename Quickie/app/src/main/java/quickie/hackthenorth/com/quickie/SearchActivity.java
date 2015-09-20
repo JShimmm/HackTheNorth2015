@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,23 +23,26 @@ public class SearchActivity extends Activity {
 	public static final int DIALOG_PROGRESS = 42;
 
 	private Yelp mYelp;
-	
-    /** Called when the activity is first created. */
+	private String LL;
+
+	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_search);
+		setContentView(R.layout.fragment_make_request);
 		mYelp = new Yelp(getString(R.string.consumer_key), getString(R.string.consumer_secret),
 				getString(R.string.api_token), getString(R.string.api_token_secret));
 		Bundle extras = getIntent().getExtras();
-		if(extras == null) {
+		if(!extras.containsKey(FULLLOCATION)) {
 			((EditText)findViewById(R.id.fullLocation)).setText("");
 		} else {
-			((EditText) findViewById(R.id.fullLocation)).setText(getIntent().getExtras().getString(FULLLOCATION));
+			String full = getIntent().getExtras().getString(FULLLOCATION);
+			((EditText) findViewById(R.id.fullLocation)).setText(full);
+			((EditText) findViewById(R.id.searchTerm)).setText(full.substring(0, full.indexOf("[")));
 		}
-
+		LL = getIntent().getStringExtra("LL");
 	}
-    
+
     public void search(View v) {
     	String terms = ((EditText)findViewById(R.id.searchTerm)).getText().toString();
     	String location = ((EditText)findViewById(R.id.location)).getText().toString();
@@ -67,6 +71,34 @@ public class SearchActivity extends Activity {
     		
     	}.execute(terms, location);
     }
+
+	public void searchByCurrentLocation(View v) {
+		String terms = ((EditText)findViewById(R.id.searchTerm)).getText().toString();
+		showDialog(DIALOG_PROGRESS);
+		new AsyncTask<String, Void, ArrayList<Business>>() {
+
+			@Override
+			protected ArrayList<Business> doInBackground(String... params) {
+				String result = mYelp.searchByCurrentLocation(params[0], LL);
+				try {
+					JSONObject response = new JSONObject(result);
+					if (response.has("businesses")) {
+						return JsonUtil.parseJsonList(
+								response.getJSONArray("businesses"), Business.CREATOR);
+					}
+				} catch (JSONException e) {
+					return null;
+				}
+				return null;
+			}
+
+			@Override
+			protected void onPostExecute(ArrayList<Business> businesses) {
+				onSuccess(businesses);
+			}
+
+		}.execute(terms, LL);
+	}
     
     public void onSuccess(ArrayList<Business> businesses) {
     	// Launch BusinessesActivity with an intent that includes the received businesses

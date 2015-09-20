@@ -48,6 +48,7 @@
             android:label="@string/title_activity_tab_platform" >
         </activity>
         <activity android:name=".BusinessActivity" />
+        <activity android:name=".SearchActivity" />
         <activity android:name=".BusinessesActivity" />
         <!--<activity-->
             <!--android:name=".messengerActivity"-->

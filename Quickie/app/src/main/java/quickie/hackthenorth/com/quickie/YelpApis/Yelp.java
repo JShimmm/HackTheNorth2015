@@ -47,4 +47,13 @@ public class Yelp {
     Response response = request.send();
     return response.getBody();
   }
+
+  public String searchByCurrentLocation(String term, String LL) {
+    OAuthRequest request = new OAuthRequest(Verb.GET, "http://api.yelp.com/v2/search");
+    request.addQuerystringParameter("term", term);
+    request.addQuerystringParameter("ll", LL);
+    this.service.signRequest(this.accessToken, request);
+    Response response = request.send();
+    return response.getBody();
+  }
 }
