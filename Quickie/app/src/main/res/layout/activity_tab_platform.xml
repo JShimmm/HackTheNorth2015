@@ -5,4 +5,18 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
+    <ImageView
+        android:id="@+id/deliver_image"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:background="@drawable/delivery"/>
+
+    <ImageView
+        android:id="@+id/make_request_image"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:background="@drawable/request"/>
+
 </LinearLayout>

@@ -50,7 +50,6 @@ public class DeliveryListAdapter extends ArrayAdapter<FoodRequest> implements Ad
         }
         FoodRequest request = getItem(position);
         TextView username = (TextView) requestView.findViewById(R.id.person_name);
-        // request.getUser().getUSername()
         username.setText(request.getName());
         TextView distanceFromPlace = (TextView) requestView.findViewById(R.id.distance_from_place);
         ParseGeoPoint userPosition = new ParseGeoPoint(latUser,lngUser);
