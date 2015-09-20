@@ -1,5 +1,7 @@
 package quickie.hackthenorth.com.quickie;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.location.Location;
 
@@ -21,14 +23,17 @@ public class TabPlatform extends FragmentActivity {
     ImageView deliver, makeRequest;
     double latitude = 0.0, longitude = 0.0;
     String name = null;
-
+    public Context context;
+    public String FacebookId;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(savedInstanceState == null) {
             latitude = getIntent().getExtras().getDouble("LatitudeCurrentUser");
             longitude = getIntent().getExtras().getDouble("LongitudeCurrentUser");
             name = getIntent().getExtras().getString("Name");
+            FacebookId = getIntent().getExtras().getString("FacebookId");
         }
+        context = this;
         setContentView(R.layout.activity_tab_platform);
         deliver = (ImageView) findViewById(R.id.deliver_image);
         makeRequest = (ImageView) findViewById(R.id.make_request_image);
@@ -41,6 +46,7 @@ public class TabPlatform extends FragmentActivity {
                 bundle.putDouble("Latitude", latitude);
                 bundle.putDouble("Longitude", longitude);
                 bundle.putString("Name", name);
+                bundle.putString("FacebookId", FacebookId);
                 fragment.setArguments(bundle);
                 setFragment(fragment);
             }
@@ -48,15 +54,13 @@ public class TabPlatform extends FragmentActivity {
         makeRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deliver.setVisibility(View.GONE);
-                makeRequest.setVisibility(View.GONE);
-                Fragment fragment = new MakeRequest();
-                Bundle bundle = new Bundle();
-                bundle.putDouble("Latitude", latitude);
-                bundle.putDouble("Longitude", longitude);
-                bundle.putString("Name", name);
-                fragment.setArguments(bundle);
-                setFragment(fragment);
+                Intent intent = new Intent(context, quickie.hackthenorth.com.quickie.SearchActivity.class);
+                intent.putExtra("Latitude", latitude);
+                intent.putExtra("Longitude", longitude);
+                intent.putExtra("Name", name);
+                intent.putExtra("FacebookId", FacebookId);
+                context.startActivity(intent);
+//                setFragment(fragment);
             }
         });
     }

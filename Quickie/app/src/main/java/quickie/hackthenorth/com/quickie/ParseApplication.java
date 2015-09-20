@@ -6,6 +6,7 @@ import android.location.Location;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
 import com.parse.FindCallback;
 import com.parse.LogInCallback;
 import com.parse.Parse;
@@ -94,6 +95,7 @@ public class ParseApplication extends Application {
         foodRequest.put("Description", request.getDescription());
         foodRequest.put("Price", request.getPrice());
         foodRequest.put("Name", request.getName());
+        foodRequest.put("FacebookId", request.getFacebookId());
         foodRequest.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -140,7 +142,7 @@ public class ParseApplication extends Application {
                 locationUser.setLongitude(object.getNumber("LngUser").doubleValue());
                 FoodRequest parsedRequest = new FoodRequest(locationFood, locationUser,
                         object.getString("Description"), object.getNumber("Price").intValue(),
-                        "Richard");
+                        "Richard", object.getString("FacebookId"));
                 foodRequests.add(parsedRequest);
             }
             return foodRequests;

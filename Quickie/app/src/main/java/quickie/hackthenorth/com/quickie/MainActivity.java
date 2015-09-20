@@ -184,6 +184,7 @@ public class MainActivity extends ActionBarActivity implements
                                 intent.putExtra("LatitudeCurrentUser", mLastLocation.getLatitude());
                                 intent.putExtra("LongitudeCurrentUser", mLastLocation.getLongitude());
                                 intent.putExtra("Name", name);
+                                intent.putExtra("FacebookId", graphResponse.getJSONObject().getString("id"));
                                 context.startActivity(intent);
                             } catch (JSONException e){
                                 e.printStackTrace();
@@ -199,6 +200,7 @@ public class MainActivity extends ActionBarActivity implements
             Toast.makeText(this, "No location", Toast.LENGTH_LONG).show();
         }
     }
+
 
     @Override
     public void onConnectionFailed(ConnectionResult result) {
