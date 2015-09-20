@@ -6,6 +6,7 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/make_request_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Name wants"

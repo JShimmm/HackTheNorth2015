@@ -75,9 +75,12 @@ public class MainActivity extends ActionBarActivity implements
 //                    Intent myIntent = new Intent(MainActivity.this, messengerActivity.class);
 //                    myIntent.putExtra("key", value); //Optional parameters
 //                    MainActivity.this.startActivity(myIntent);
-                    Intent myIntent = new Intent(MainActivity.this, SearchActivity.class);
-                    myIntent.putExtra("LL", ((Double) mLastLocation.getLatitude()).toString() + "," + ((Double) mLastLocation.getLongitude()).toString()); //Optional parameters
-                    startActivity(myIntent);
+
+//                    Intent intent = new Intent(context, quickie.hackthenorth.com.quickie.TabPlatform.class);
+
+//                    Intent myIntent = new Intent(MainActivity.this, SearchActivity.class);
+//                    myIntent.putExtra("LL", ((Double) mLastLocation.getLatitude()).toString() + "," + ((Double) mLastLocation.getLongitude()).toString()); //Optional parameters
+//                    startActivity(myIntent);
                 }
 
                 @Override
@@ -90,10 +93,10 @@ public class MainActivity extends ActionBarActivity implements
                     info.setText("Login attempt failed.");
                 }
             });
-            parseApp = new ParseApplication();
         } else {
             mGoogleApiClient.connect();
         }
+        parseApp = new ParseApplication();
     }
 
     @Override
@@ -109,25 +112,6 @@ public class MainActivity extends ActionBarActivity implements
         return true;
     }
 
-    public int iterator = 0;
-    public void hello(View v){
-        Location locationFood = new Location("");
-        Location locationUser = new Location("");
-        locationFood.setLatitude(43.4732817 + iterator++ * 0.000005);
-        locationFood.setLongitude(-80.5384747 + iterator++ * 0.000005);
-
-        locationUser.setLatitude(43.4743725 + iterator++ * 0.000005);
-        locationUser.setLatitude(-80.5283152 + iterator++ * 0.000005);
-
-        FoodRequest request = new FoodRequest(locationFood, locationUser,"Hello", 15, "Richard");
-        parseApp.pushFoodRequestToDB(request);
-    }
-
-    public void StartSomething(View v){
-        Intent intent = new Intent(this, quickie.hackthenorth.com.quickie.TabPlatform.class);
-        this.startActivity(intent);
-    }
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -139,6 +123,19 @@ public class MainActivity extends ActionBarActivity implements
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if(AccessToken.getCurrentAccessToken() != null){
+            mGoogleApiClient.connect();
+        }
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
     }
 
     @Override

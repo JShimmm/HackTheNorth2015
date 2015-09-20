@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 
 import quickie.hackthenorth.com.quickie.Requests.DeliveryRequests;
-import quickie.hackthenorth.com.quickie.Requests.FoodRequest;
 import quickie.hackthenorth.com.quickie.Requests.MakeRequest;
 
 public class TabPlatform extends FragmentActivity {
