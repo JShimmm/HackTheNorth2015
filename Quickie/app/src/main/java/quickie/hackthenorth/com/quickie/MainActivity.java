@@ -39,6 +39,8 @@ public class MainActivity extends ActionBarActivity implements
     private TextView info;
     private LoginButton loginButton;
     private CallbackManager callbackManager;
+    private String fbUserId;
+
     private Context context;
     ParseApplication parseApp;
     GoogleApiClient mGoogleApiClient;
@@ -61,6 +63,7 @@ public class MainActivity extends ActionBarActivity implements
             loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
                 public void onSuccess(LoginResult loginResult) {
+                    fbUserId = loginResult.getAccessToken().getUserId();
                     info.setText(
                             "User ID: "
                                     + loginResult.getAccessToken().getUserId()
@@ -69,6 +72,12 @@ public class MainActivity extends ActionBarActivity implements
                                     + loginResult.getAccessToken().getToken()
                     );
                     mGoogleApiClient.connect();
+//                    Intent myIntent = new Intent(MainActivity.this, messengerActivity.class);
+//                    myIntent.putExtra("key", value); //Optional parameters
+//                    MainActivity.this.startActivity(myIntent);
+                    Intent myIntent = new Intent(MainActivity.this, SearchActivity.class);
+                    myIntent.putExtra("LL", ((Double) mLastLocation.getLatitude()).toString() + "," + ((Double) mLastLocation.getLongitude()).toString()); //Optional parameters
+                    startActivity(myIntent);
                 }
 
                 @Override
