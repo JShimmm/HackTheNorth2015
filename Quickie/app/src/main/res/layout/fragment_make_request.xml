@@ -1,8 +1,16 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="quickie.hackthenorth.com.quickie.Requests.MakeRequest"
-    android:orientation="vertical">
+    android:background="#fa6a6a">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
@@ -80,4 +88,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Make my request"/>
-</LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
