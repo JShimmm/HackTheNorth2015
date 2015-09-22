@@ -1,9 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="16dp"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/info"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:textSize="18sp"
+        />
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        />
 
     <!--<Button-->
         <!--android:layout_height="wrap_content"-->
@@ -12,11 +27,19 @@
         <!--android:onClick="hello"></Button>-->
 
     <Button
+<<<<<<< HEAD
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Button"
         android:id="@+id/button"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+=======
+        android:id="@+id/startMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get a quickie!"
+        android:onClick="startSomething"></Button>
+>>>>>>> 0b67a01afa461ebdeb4a073029310f7cfb74f3eb
 
 </RelativeLayout>

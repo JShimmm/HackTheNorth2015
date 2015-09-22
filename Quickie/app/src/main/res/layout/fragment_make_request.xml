@@ -1,14 +1,39 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="quickie.hackthenorth.com.quickie.Requests.MakeRequest"
-    android:orientation="vertical">
+    android:background="#fa6a6a">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
-    <EditText
+    <TextView
+        android:id="@+id/make_request_name"
         android:layout_width="match_parent"
-        android:hint="Search"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Name wants"
+        android:textSize="30dp" />
+
+    <EditText
+        android:id="@+id/make_request_food"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="food"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/make_request_distributor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="at"
+        android:textSize="20dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,37 +42,51 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Search"
-            android:layout_weight="0.4"/>
+            android:layout_weight="0.4"
+            android:onClick="search"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Find neighbouring food"
-            android:layout_weight="0.6"></Button>
+            android:layout_weight="0.6"
+            android:onClick="searchByCurrentLocation"></Button>
     </LinearLayout>
     <ListView
         android:layout_height="wrap_content"
         android:layout_width="match_parent">
     </ListView>
+    <EditText
+        android:id="@+id/make_request_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
-            android:layout_width="40dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.2"
             android:text="CAD$ : "
             />
         <EditText
-            android:layout_width="wrap_content"
+            android:id="@+id/make_request_price"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.8"
             android:hint="Price"/>
     </LinearLayout>
     <EditText
+        android:id="@+id/make_request_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Specifics of request"/>
     <Button
+        android:id="@+id/make_request_button"
+        android:onClick="submitRequest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Make my request"/>
-</LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

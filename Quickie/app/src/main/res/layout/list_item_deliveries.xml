@@ -25,22 +25,22 @@
                 android:id="@+id/person_name"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="8dp"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="0.6"
                 android:maxLines="1"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
                 android:text="FirstName LastName"
                 android:textColor="#000000"
-                android:textSize="16sp" />
+                android:textSize="24sp" />
             <TextView
                 android:id="@+id/distance_from_place"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
-                android:gravity="center"
+                android:layout_gravity="center_vertical"
                 android:text="16km"
-                android:textColor="#333333"
+                android:textColor="#8470ff"
                 android:textSize="18sp"
                 android:textStyle="bold" />
             <TextView
@@ -48,9 +48,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
-                android:gravity="center"
+                android:layout_gravity="center_vertical"
                 android:text="16km"
-                android:textColor="#333333"
+                android:textColor="#7cfc00"
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </LinearLayout>

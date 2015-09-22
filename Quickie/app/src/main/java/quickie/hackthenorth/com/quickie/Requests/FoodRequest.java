@@ -9,13 +9,46 @@ import com.parse.ParseUser;
  */
 public class FoodRequest {
 
-    public ParseUser user;
-    public Location locationFood;
-    public Location locationUser;
-    public String description;
+    private ParseUser user;
+    private Location locationFood;
+    private Location locationUser;
+    private String description;
+    private int price;
+    private String name;
+    private String FacebookId;
 
-    public FoodRequest(){
+    public String getFacebookId() {
+        return FacebookId;
+    }
 
+    public void setFacebookId(String facebookId) {
+        FacebookId = facebookId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public FoodRequest(Location locationFood, Location locationUser,
+                       String description, int price, String name, String FacebookId){
+        this.locationFood = locationFood;
+        this.locationUser = locationUser;
+        this.description = description;
+        this.price = price;
+        this.name = name;
+        this.FacebookId = FacebookId;
     }
 
     public Location getLocationFood() {
