@@ -5,9 +5,11 @@ import quickie.hackthenorth.com.quickie.R;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.app.ActionBar;
@@ -22,11 +24,17 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class HomeActivity extends FragmentActivity implements
         ActionBar.TabListener{
 
+    ImageView deliver, makeRequest;
+    double latitude = 0.0, longitude = 0.0;
+    String name = null;
+    public Context context;
+    public String FacebookId;
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
     private ActionBar actionBar;
@@ -36,6 +44,16 @@ public class HomeActivity extends FragmentActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(savedInstanceState == null) {
+            if(getIntent()!=null){
+                Log.d("abcd", "intent is not null");
+            }
+            latitude = getIntent().getExtras().getDouble("LatitudeCurrentUser");
+            longitude = getIntent().getExtras().getDouble("LongitudeCurrentUser");
+            name = getIntent().getExtras().getString("Name");
+            FacebookId = getIntent().getExtras().getString("FacebookId");
+        }
+        context = this;
         setContentView(R.layout.activity_home);
 
         // Initilization

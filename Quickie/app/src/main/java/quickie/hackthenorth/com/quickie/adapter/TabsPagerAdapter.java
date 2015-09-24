@@ -6,6 +6,7 @@ package quickie.hackthenorth.com.quickie.adapter;
 
 import quickie.hackthenorth.com.quickie.Requests.DeliveryRequests;
 import quickie.hackthenorth.com.quickie.Requests.MakeRequest;
+import quickie.hackthenorth.com.quickie.SearchActivity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -21,7 +22,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter{
         switch (index){
             case 0:
                 //MakeRequest fragment activity
-                return new MakeRequest();
+                return new SearchActivity();
             case 1:
                 //DeliveryRequest fragment activity
                 return new DeliveryRequests();

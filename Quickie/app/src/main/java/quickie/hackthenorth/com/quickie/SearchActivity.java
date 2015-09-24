@@ -1,8 +1,10 @@
 package quickie.hackthenorth.com.quickie;
 
+import quickie.hackthenorth.com.quickie.Requests.DeliveryListAdapter;
 import quickie.hackthenorth.com.quickie.Requests.FoodRequest;
 import quickie.hackthenorth.com.quickie.YelpApis.Yelp;
 
+import android.content.Context;
 import android.location.Location;
 
 import android.app.Activity;
@@ -12,10 +14,16 @@ import android.content.Intent;
 import android.location.*;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,9 +31,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.locks.LockSupport;
 
-public class SearchActivity extends Activity {
+public class SearchActivity extends Fragment {
 	
 	public static final int DIALOG_PROGRESS = 42;
 
@@ -42,41 +52,51 @@ public class SearchActivity extends Activity {
 	public EditText price;
 	public EditText description;
 	String FacebookId;
+	public Activity activity;
+	public Context context;
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.fragment_make_request);
 		parseApplication = new ParseApplication();
 		mYelp = new Yelp(getString(R.string.consumer_key), getString(R.string.consumer_secret),
 				getString(R.string.api_token), getString(R.string.api_token_secret));
-		Bundle extras = getIntent().getExtras();
-		if(extras.containsKey("Latitude")){
+		if(getArguments()!=null){
 			location = new Location("");
-			location.setLatitude(extras.getDouble("Latitude"));
-			location.setLongitude(extras.getDouble("Longitude"));
-			name = extras.getString("Name");
-			FacebookId = extras.getString("FacebookId");
+			location.setLatitude(getArguments().getDouble("Latitude"));
+			location.setLongitude(getArguments().getDouble("Longitude"));
+			name = getArguments().getString("Name");
+			FacebookId = getArguments().getString("FacebookId");
 			Log.d("Quickie", FacebookId);
 			LL = location.getLatitude() + "," + location.getLongitude();
-
-			TextView nameView = (TextView) findViewById(R.id.make_request_name);
-			nameView.setText(name + " wants");
-			description = (EditText) findViewById(R.id.make_request_description);
-			price = (EditText) findViewById(R.id.make_request_price);
 		}
-		if(extras.containsKey("Food")){
-			pickupPlace = (EditText) findViewById(R.id.make_request_location);
-			pickupPlace.setText(extras.getString("Address"));
-			food = (EditText) findViewById(R.id.make_request_food);
-			food.setText(extras.getString("Food"));
-			distributorView = (EditText) findViewById(R.id.make_request_distributor);
-			distributorView.setText(extras.getString("Distributor"));
+
+		context = activity = this.getActivity();
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, final ViewGroup container,
+							 Bundle savedInstanceState) {
+		View root = inflater.inflate(R.layout.fragment_make_request, container, false);
+
+		TextView nameView = (TextView) root.findViewById(R.id.make_request_name);
+		nameView.setText(name + " wants");
+		description = (EditText) root.findViewById(R.id.make_request_description);
+		price = (EditText) root.findViewById(R.id.make_request_price);
+
+		if(getArguments()!=null){
+			pickupPlace = (EditText) root.findViewById(R.id.make_request_location);
+			pickupPlace.setText(getArguments().getString("Address"));
+			food = (EditText) root.findViewById(R.id.make_request_food);
+			food.setText(getArguments().getString("Food"));
+			distributorView = (EditText) root.findViewById(R.id.make_request_distributor);
+			distributorView.setText(getArguments().getString("Distributor"));
 			locationFood = new Location("");
-			locationFood.setLatitude(extras.getDouble("LatitudeFood"));
-			locationFood.setLongitude(extras.getDouble("LongitudeFood"));
+			locationFood.setLatitude(getArguments().getDouble("LatitudeFood"));
+			locationFood.setLongitude(getArguments().getDouble("LongitudeFood"));
 		}
 
+		return root;
 	}
 
 	public void submitRequest(View v){
@@ -95,9 +115,9 @@ public class SearchActivity extends Activity {
 	}
 
     public void search(View v) {
-    	String terms = ((EditText)findViewById(R.id.make_request_food)).getText().toString();
-    	String location = ((EditText)findViewById(R.id.make_request_location)).getText().toString();
-    	showDialog(DIALOG_PROGRESS);
+		String terms = ((EditText)v.findViewById(R.id.make_request_food)).getText().toString();
+    	String location = ((EditText) v.findViewById(R.id.make_request_location)).getText().toString();
+    	//showDialog(DIALOG_PROGRESS);
     	new AsyncTask<String, Void, ArrayList<Business>>() {
 
 			@Override
@@ -124,8 +144,8 @@ public class SearchActivity extends Activity {
     }
 
 	public void searchByCurrentLocation(View v) {
-		String terms = ((EditText)findViewById(R.id.make_request_food)).getText().toString();
-		showDialog(DIALOG_PROGRESS);
+		String terms = ((EditText)v.findViewById(R.id.make_request_food)).getText().toString();
+		//showDialog(DIALOG_PROGRESS);
 		new AsyncTask<String, Void, ArrayList<Business>>() {
 
 			@Override
@@ -153,19 +173,19 @@ public class SearchActivity extends Activity {
     
     public void onSuccess(ArrayList<Business> businesses) {
     	// Launch BusinessesActivity with an intent that includes the received businesses
-		dismissDialog(DIALOG_PROGRESS);
+		//dismissDialog(DIALOG_PROGRESS);
 		if (businesses != null) {
-			Intent intent = new Intent(SearchActivity.this, BusinessesActivity.class);
+			Intent intent = new Intent(context, BusinessesActivity.class);
 			intent.putParcelableArrayListExtra(BusinessesActivity.EXTRA_BUSINESSES, businesses);
 			intent.putExtra("Latitude", location.getLatitude());
 			intent.putExtra("Longitude", location.getLongitude());
 			intent.putExtra("Name", name);
 			intent.putExtra("FacebookId", FacebookId);
-			food = (EditText) findViewById(R.id.make_request_food);
+			food = (EditText) ((Activity)context).findViewById(R.id.make_request_food);
 			intent.putExtra("Food", food.getText().toString());
 			startActivity(intent);
 		} else {
-			Toast.makeText(this, "An error occured during search", Toast.LENGTH_LONG).show();
+			Toast.makeText(context, "An error occured during search", Toast.LENGTH_LONG).show();
 		}
     }
 
@@ -178,19 +198,19 @@ public class SearchActivity extends Activity {
 		super.onSaveInstanceState(savedInstanceState);
 
 		// Save the user's current game state
-		savedInstanceState.putString(RESTAURANT, ((EditText) findViewById(R.id.make_request_food)).getText().toString());
-		savedInstanceState.putString(LOCATION, ((EditText) findViewById(R.id.make_request_location)).getText().toString());
+		savedInstanceState.putString(RESTAURANT, ((EditText) ((Activity)context).findViewById(R.id.make_request_food)).getText().toString());
+		savedInstanceState.putString(LOCATION, ((EditText) ((Activity)context).findViewById(R.id.make_request_location)).getText().toString());
 
 	}
 
-    @Override
-    public Dialog onCreateDialog(int id) {
-    	if (id == DIALOG_PROGRESS) {
-    		ProgressDialog dialog = new ProgressDialog(this);
-    		dialog.setMessage("Loading...");
-    		return dialog;
-    	} else {
-    		return null;
-    	}
-    }
+//    @Override
+//    public Dialog onCreateDialog(int id) {
+//    	if (id == DIALOG_PROGRESS) {
+//    		ProgressDialog dialog = new ProgressDialog(context);
+//    		dialog.setMessage("Loading...");
+//    		return dialog;
+//    	} else {
+//    		return null;
+//    	}
+//    }
 }
