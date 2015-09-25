@@ -64,6 +64,7 @@ public class MainActivity extends ActionBarActivity implements
                 @Override
                 public void onSuccess(LoginResult loginResult) {
                     fbUserId = loginResult.getAccessToken().getUserId();
+
                     info.setText(
                             "User ID: "
                                     + loginResult.getAccessToken().getUserId()
@@ -170,7 +171,6 @@ public class MainActivity extends ActionBarActivity implements
         if (mLastLocation != null) {
             Toast.makeText(this, String.valueOf(mLastLocation.getLatitude()) + "" +
                     String.valueOf(mLastLocation.getLongitude()), Toast.LENGTH_LONG).show();
-            Log.d("Quickie", "Hellooooo");
             GraphRequest graphRequest = GraphRequest.newGraphPathRequest(
                     AccessToken.getCurrentAccessToken(),
                     "me",
@@ -180,11 +180,12 @@ public class MainActivity extends ActionBarActivity implements
                             Log.d("Quickie", graphResponse.toString());
                             try{
                                 String name = graphResponse.getJSONObject().getString("name");
-                                Intent intent = new Intent(context, quickie.hackthenorth.com.quickie.TabPlatform.class);
+                                Intent intent = new Intent(context, quickie.hackthenorth.com.quickie.HomeActivity.class);
                                 intent.putExtra("LatitudeCurrentUser", mLastLocation.getLatitude());
                                 intent.putExtra("LongitudeCurrentUser", mLastLocation.getLongitude());
                                 intent.putExtra("Name", name);
-                                intent.putExtra("FacebookId", graphResponse.getJSONObject().getString("id"));
+                                Log.d("abcd","MainActivity: "+fbUserId);
+                                intent.putExtra("FacebookId", fbUserId);
                                 context.startActivity(intent);
                             } catch (JSONException e){
                                 e.printStackTrace();

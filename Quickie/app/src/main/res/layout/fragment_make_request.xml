@@ -35,13 +35,13 @@
             android:layout_height="wrap_content"
             android:text="Search"
             android:layout_weight="0.4"
-            android:onClick="search"/>
+            android:id="@+id/searchButton"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Find neighbouring food"
             android:layout_weight="0.6"
-            android:onClick="searchByCurrentLocation"></Button>
+            android:id="@+id/searchByCurrentLocationButton"></Button>
     </LinearLayout>
     <ListView
         android:layout_height="wrap_content"
@@ -75,8 +75,7 @@
         android:layout_height="wrap_content"
         android:hint="Specifics of request"/>
     <Button
-        android:id="@+id/make_request_button"
-        android:onClick="submitRequest"
+        android:id="@+id/submitRequesButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Make my request"/>

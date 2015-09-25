@@ -51,7 +51,7 @@ public class BusinessesActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         String hello = (String) l.getAdapter().getItem(position);
-        Intent intent = new Intent(this, SearchActivity.class);
+        Intent intent = new Intent(this, HomeActivity.class);
         Geocoder geocoder = new Geocoder(BusinessesActivity.this, Locale.ENGLISH);
         try{
             List<Address> addressList = geocoder.getFromLocationName(hello.split("\\[")[1].split("\\]")[0],1);
@@ -60,6 +60,7 @@ public class BusinessesActivity extends ListActivity {
         } catch (Exception e){
             e.printStackTrace();
         } finally {
+            intent.putExtra("calledFrom", "BusinessessActivity");
             intent.putExtra("Latitude", location.getLatitude());
             intent.putExtra("Longitude", location.getLongitude());
             intent.putExtra("Name", name);
@@ -67,7 +68,10 @@ public class BusinessesActivity extends ListActivity {
             intent.putExtra("Address", hello.split("\\[")[1].split("\\]")[0]);
             intent.putExtra("Food", food);
             intent.putExtra("FacebookId", FacebookId);
-            startActivity(intent);
+            Log.d("abcd", "in BusinessActivity: Address: " +hello.split("\\[")[1].split("\\]")[0]);
+            Log.d("abcd","in BusinessActivity: food: "+food);
+            setResult(RESULT_OK,intent);
+            finish();
         }
     }
 }

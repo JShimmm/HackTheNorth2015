@@ -29,7 +29,6 @@ public class DeliveryRequests extends Fragment {
     ParseApplication parseApplication;
     Location mLastLocation = new Location("");
     public Context context;
-
     public Activity activity;
     public DeliveryRequests() {
         parseApplication = new ParseApplication();
